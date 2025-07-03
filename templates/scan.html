@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Сканирование QR-кода{% endblock %}
+
+{% block scripts %}
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('cell-input').value = decodedText;
+            document.querySelector('form').submit();
+        }
+        
+        const html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { 
+                fps: 10, 
+                qrbox: { width: 250, height: 250 },
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+            });
+            
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h2 class="text-center mb-4">
+        <i class="bi bi-qr-code-scan"></i> Сканирование ячейки
+    </h2>
+    
+    <div id="qr-reader" class="mb-3"></div>
+    
+    <form method="POST">
+        <input type="hidden" name="cell" id="cell-input">
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success" disabled id="submit-btn">
+                <i class="bi bi-check-circle"></i> Подтвердить
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Назад
+            </a>
+        </div>
+    </form>
+{% endblock %}

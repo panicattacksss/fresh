@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">
+        <i class="bi bi-box-seam"></i> Управление складом
+    </h1>
+    
+    <div class="d-grid gap-3">
+        <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-qr-code-scan"></i> Сканировать QR-код
+        </a>
+        <a href="{{ url_for('inventory') }}" class="btn btn-secondary btn-lg">
+            <i class="bi bi-clipboard-data"></i> Просмотр остатков
+        </a>
+    </div>
+{% endblock %}
